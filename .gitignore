@@ -1,14 +1,13 @@
-# Папка Visual Studio
 .vs/
 
-# Папки збірки CMake та Visual Studio
+
 build/
 out/
 x64/
 Debug/
 Release/
 
-# Скомпільовані файли
+
 *.exe
 *.dll
 *.lib
@@ -16,6 +15,6 @@ Release/
 *.pdb
 *.ilk
 
-# Файли користувацьких налаштувань
+
 *.user
 *.suo

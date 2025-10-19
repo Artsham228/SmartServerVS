@@ -1,0 +1,10 @@
+{
+	"name": "smartservervs",
+	"version-string": "1.0.0",
+	"dependencies": [
+		"crow"
+	],
+	"vcpkg-configuration": {
+		"default-triplet": "x64-windows-static"
+	}
+}
