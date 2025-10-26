@@ -10,7 +10,7 @@ void Conditioner :: turnOn() {
 	isOn = true;
 	std::cout << "conditioner is turned on" << std::endl;
 }
-void Conditioner::turnOn() {
+void Conditioner::turnOff() {
 	isOn = false;
 	std::cout << "conditioner is turned off" << std::endl;
 }
