@@ -1,7 +1,3 @@
-# SmartServerVSТак, звичайно. Це чудова ідея.
-
-Ось повна документація README.md для твого проекту, що охоплює все, що ми створили. Ти можеш скопіювати цей текст і зберегти його у файлі README.md у головній папці твого проекту.
-
 Smart Home C++ Server & Android Client
 This project is a full-stack smart home control system. It features a high-performance, stateful C++ backend server and a native Android client for remote control.
 
