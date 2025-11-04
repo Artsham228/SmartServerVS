@@ -1,4 +1,5 @@
 Smart Home C++ Server & Android Client
+
 This project is a full-stack smart home control system. It features a high-performance, stateful C++ backend server and a native Android client for remote control.
 
 The server manages multiple IoT devices (lights, doors, air conditioning) and persists their state in a database. The API is secured via token authentication.
