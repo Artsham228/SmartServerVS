@@ -1,17 +1,27 @@
 #include <door.h>
 #include <iostream>
 #include "../include/ControllableDevice.h"
-Door::Door() : isOn(false) {
+Door::Door() : isOpen(false),isLocked(true) {
 	std::cout << "door connected" << std::endl;
 }
+void Door::Open() {
+	isOpen = true;
+	std::cout << "Door is open" << std::endl;
+}
 void Door::turnOn() {
-	isOn = true;
-	std::cout << "Door is powered on" << std::endl;
+	this->Open(); 
 }
 void Door::turnOff() {
-	isOn = false;
-	std::cout << "Door is powered off" << std::endl;
+	this->Close(); 
+}
+void Door::Close() {
+	isOpen = false;
+	std::cout << "Door is close" << std::endl;
+}
+void Door::setLock(bool d_stat) {
+	 isLocked = d_stat;
+	std::cout << "Door status set to:" << d_stat;
 }
 std::string Door::getStatus() {
-	return isOn ? "Door is open" : "Door is locked";
+	return isLocked ? "Door is locked" : "Door is unlocked";
 }

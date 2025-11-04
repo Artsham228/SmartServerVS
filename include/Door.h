@@ -2,11 +2,16 @@
 #include <string>
 #include "ControllableDevice.h" 
 class Door :public ControllableDevice {
-private: bool isOn;
+private: bool isLocked;
+	   bool isOpen;
 public:
 	Door();
 	void turnOn() override;
 	void turnOff() override;
+	void Open();
+	void Close();
+	void setLock(bool);
 	std::string getStatus()override;
-	bool getIsOn() { return isOn; }
+	bool getIsLocked() { return isLocked; }
+	bool getIsOpen() { return isOpen; };
 };

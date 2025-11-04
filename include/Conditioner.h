@@ -9,6 +9,7 @@ public:
 	void turnOn() override;
 	void turnOff() override;
 	std::string getStatus()override;
+	
 	bool getIsOn() { return isOn; }
 	int getTemperature();
 	void setTemperature(int temp);

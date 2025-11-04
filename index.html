@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Smart Home</title>
+</head>
+<body>
+    <h1>Control Bulb</h1>
+    <h2 id="light-status">Loading...</h2>
+
+    <button onclick="getStatus()">Check Info</button>
+    <button onclick="turnLight('on')">Turn On</button>
+    <button onclick="turnLight('off')">Turn Off</button>
+    <hr>
+    <input type="text" id="color-input" placeholder="red, green, blue...">
+    <button onclick="setColor()">Set Color</button>
+    <hr>
+
+    <h1>Control Door</h1>
+    <h2 id="door-status">Loading...</h2>
+    
+    <button onclick="setDoorState('open')">Open</button>
+    <button onclick="setDoorState('close')">Close</button>
+    <br>
+    <button onclick="setDoorLock(true)">Lock</button>
+    <button onclick="setDoorLock(false)">Unlock</button>
+
+    <hr>
+    <h1>Control Conditioner</h1>
+    <h2 id="conditioner-status">Loading...</h2>
+    
+    <button onclick="setConditionerState('on')">Turn On</button>
+    <button onclick="setConditionerState('off')">Turn Off</button>
+    <br>
+    <input type="number" id="temp-input" placeholder="e.g., 22">
+    <button onclick="setTemperature()">Set Temperature</button>
+    
+    <script>
+        const API_KEY = "my-secret-key-12345";
+
+        async function getStatus() {
+            const response = await fetch('/light/status', {
+                headers: { 'X-API-Key': API_KEY }
+            });
+            const data = await response.json();
+            document.getElementById('light-status').innerText = data.status_message;
+        }
+
+        async function turnLight(state) {
+            await fetch('/light/set', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
+                },
+                body: JSON.stringify({ state: state })
+            });
+            await getStatus();
+        }
+
+        async function setColor() {
+            const color = document.getElementById('color-input').value;
+            await fetch('/light/set_color', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
+                },
+                body: JSON.stringify({ color: color })
+            });
+            await getStatus();
+        }
+
+        async function getDoorStatus() {
+            const response = await fetch('/door/status', {
+                headers: { 'X-API-Key': API_KEY }
+            });
+            const data = await response.json();
+            let statusText = data.status_message; 
+            statusText += data.is_open ? " (Open)" : " (Closed)";
+            document.getElementById('door-status').innerText = statusText;
+        }
+
+        async function setDoorState(state) { 
+            await fetch('/door/set_state', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY 
+                },
+                body: JSON.stringify({ state: state }) 
+            });
+            await getDoorStatus(); 
+        }
+
+        async function setDoorLock(isLocked) { 
+            await fetch('/door/set_lock', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
+                },
+                body: JSON.stringify({ lock: isLocked }) 
+            });
+            await getDoorStatus(); 
+        }
+
+        async function getConditionerStatus() {
+            const response = await fetch('/conditioner/status', {
+                headers: { 'X-API-Key': API_KEY }
+            });
+            const data = await response.json();
+            let statusText = data.is_on ? "Conditioner is on" : "Conditioner is off";
+            statusText += `, Temp: ${data.current_temperature}°C`; 
+            document.getElementById('conditioner-status').innerText = statusText;
+        }
+
+        async function setConditionerState(state) {
+            await fetch('/conditioner/set', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
+                },
+                body: JSON.stringify({ state: state })
+            });
+            await getConditionerStatus();
+        }
+
+        async function setTemperature() {
+            const temp = document.getElementById('temp-input').valueAsNumber;
+            await fetch('/conditioner/set_temp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
+                },
+                body: JSON.stringify({ temp: temp }) 
+            });
+            await getConditionerStatus();
+        }
+        
+        getDoorStatus(); 
+        getStatus();
+        getConditionerStatus();
+    </script>
+</body>
+</html>
